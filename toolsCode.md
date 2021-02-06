@@ -1,5 +1,6 @@
 ### 1. 生命周期: 钩子函数
-beforeCreate() {
+
+```beforeCreate() {
     console.log('beforeCreated');
   },
   created() {
@@ -21,3 +22,4 @@ beforeCreate() {
   updated() {
     console.log('updated');
   },
+```
