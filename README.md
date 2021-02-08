@@ -1,5 +1,12 @@
 # vue-h5-shop
 
+## version
+```node: v14.15.0
+"vuex": "^3.6.2"
+"@vue/cli-service": "~4.5.0",
+"core-js": "^3.6.5",
+```
+
 ## Project setup
 ```
 npm install
@@ -22,3 +29,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
