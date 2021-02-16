@@ -12,7 +12,9 @@ module.exports = {
                 assets: "@/assets",
             }
         }
-    }
+    },
+    // 关闭eslint
+    // lintOnSave: true
 }
 
 

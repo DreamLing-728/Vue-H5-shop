@@ -5,6 +5,7 @@ import index from './modules/index';
 Vue.use(Vuex);
 
 let store = new Vuex.Store({
+    // 基本对象4：modules：stored的子模块
     modules: {
         index
     }
