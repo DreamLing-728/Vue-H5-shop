@@ -21,6 +21,8 @@
         <div class="title">{{ item.title }}</div>
       </div>
     </div>
+
+    <!-- 3. 商品展示 -->
   </div>
 </template>
 
