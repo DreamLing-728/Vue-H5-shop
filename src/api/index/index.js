@@ -10,3 +10,8 @@ export function getSwiperData() {
 export function getNavData() {
     return request(config.BASE_URL+ config.PATH + "/home/index/nav?token=" + config.TOKEN);
 }
+
+// 首页商品获取
+export function getGoodsData() {
+    return request(config.BASE_URL+ config.PATH + "/home/index/goodsLevel?token=" + config.TOKEN);
+}

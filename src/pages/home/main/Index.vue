@@ -79,8 +79,9 @@ export default {
 <style lang="scss">
 $colorRed: #d10c0c;
 $sizeImage: 0.8rem;
+$contentColor: #ffffff;
 
-.nav { position: fixed; bottom: 0; display: flex; justify-content: space-around; align-items: center; width: 100%; font-size: 0.35rem;}
+.nav { position: fixed; bottom: 0; display: flex; justify-content: space-around; align-items: center; width: 100%; font-size: 0.35rem; background-color: $contentColor; text-align: center;}
 
 .nav .index {width: 1rem;}
 .nav .index.active {color: $colorRed}

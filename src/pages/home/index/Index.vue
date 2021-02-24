@@ -31,58 +31,75 @@
     </div>
 
     <!-- 3. 分类展示 -->
-    <div class="classify-wrap">
-      <div class="classify-title">——潮流女装——</div>
-      <div class="above-wrap">
-        <div class="left-wrap">
-          <div class="title">高跟鞋2020新款春季单鞋好看好看</div>
-          <div class="remark-price">
-            <div class="remark">精品打折</div>
-            <div class="price">12.8</div>
+    <div class="classify-wrap" v-for="(item, index) in goods" :key="index">
+      <div class="classify-item0-wrap" v-if="index % 2 === 0">
+        <div class="classify-title">——{{item.title}}——</div>
+        <div class="above-wrap">
+          <div class="left-wrap">
+            <div class="title">{{item.items[0].title}}</div>
+            <div class="remark-price">
+              <div class="remark">精品打折</div>
+              <div class="price">{{item.items[0].price}}</div>
+            </div>
+            <div class="img-wrap">
+              <img src="~assets/images/lazyImg.png"  :data-echo="item.items[0].image"/>
+            </div>
           </div>
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png" /></div>
+          <div class="right-wrap" >
+            <div class="item-wrap" v-for="(item2, index2) in item.items.slice(1, 3)" :key="index2">
+              <div class="title-remark">
+                <div class="title">{{item2.title}}</div>
+                <div class="remark">精品挑选</div>
+              </div>
+              <div class="img-wrap">
+                <img src="~assets/images/lazyImg.png" :data-echo="item2.image"/>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="right-wrap">
-          <div class="item-wrap">
-            <div class="title-remark">
-              <div class="title">欧美尖头蝴蝶结高跟鞋</div>
-              <div class="remark">精品挑选</div>
+        <div class="below-wrap">
+          <div class="item-wrap" v-for="(item3, index3) in item.items.slice(3)" :key="index3">
+            <div class="title">{{item3.title}}</div>
+            <div class="img-wrap">
+              <img src="~assets/images/lazyImg.png" :data-echo="item3.image"/>
             </div>
-            <div class="img-wrap"><img src="~assets/images/lazyImg.png" /></div>
-          </div>
-          <div class="item-wrap">
-            <div class="title-remark">
-              <div class="title">欧美尖头蝴蝶结高跟鞋</div>
-              <div class="remark">精品挑选</div>
-            </div>
-            <div class="img-wrap"><img src="~assets/images/lazyImg.png" /></div>
+            <div class="now-price">￥{{item3.price}}</div>
+            <div class="old-price">￥{{item3.price*2}}</div>
           </div>
         </div>
       </div>
-      <div class="below-wrap">
-        <div class="item">
-          <div class="title">2021年新款</div>
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png"></div>
-          <div class="now-price">￥288</div>
-          <div class="old-price">￥398</div>
+      <div class="classify-item1-wrap" v-else>
+        <div class="classify-title">———{{item.title}}———</div>
+        <div class="above-wrap">
+          <div class="item-wrap" v-for="(item1, index1) in item.items.slice(0, 2)" :key="index1">
+            <div class="title">{{item1.title}}</div>
+            <div class="remark">精品挑选</div>
+            <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item1.image"></div>
+          </div>
         </div>
-        <div class="item">
-          <div class="title">2021年新款</div>
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png"></div>
-          <div class="now-price">￥288</div>
-          <div class="old-price">￥398</div>
+        <div class="below-wrap">
+          <div class="item-wrap" v-for="(item2, index2) in item.items.slice(3)" :key="index2">
+            <div class="title">{{item2.title}}</div>
+            <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item2.image"/></div>
+            <div class="now-price">￥{{item2.price}}</div>
+            <div class="old-price">￥{{item2.price*2}}</div>
+          </div>
         </div>
-        <div class="item">
-          <div class="title">2021年新款</div>
+      </div>
+    </div>
+
+    <!-- 4. 推荐 -->
+    <div class="recom-wrap">
+      <div class="title-wrap">
+        <div class="line"></div>
+        <div class="title">为您推荐</div>
+        <div class="line"></div>
+      </div>
+      <div class="content-wrap">
+        <div class="item-wrap">
           <div class="img-wrap"><img src="~assets/images/lazyImg.png"></div>
-          <div class="now-price">￥288</div>
-          <div class="old-price">￥398</div>
-        </div>
-        <div class="item">
-          <div class="title">2021年新款</div>
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png"></div>
-          <div class="now-price">￥288</div>
-          <div class="old-price">￥398</div>
+          <div class="title">了时代峻峰临时冻结反馈收到了开发商的科技发生的福克斯的开发商的</div>
+          <div class="price">￥189</div>
         </div>
       </div>
     </div>
@@ -99,7 +116,8 @@ export default {
   data() {
     return {};
   },
-  mounted() {
+  created() {
+    console.log("created");
     this.handleGetSwiper({
       success: () => {
         this.$nextTick(() => {
@@ -118,18 +136,49 @@ export default {
         });
       },
     });
+    this.handleGetGoods({
+      success: () => {
+        this.$nextTick(() => {
+          this.$utils.lazyImg();
+        });
+      },
+    });
   },
   computed: {
     ...mapState({
       swipers: (state) => state.index.swipers,
       navs: (state) => state.index.navs,
+      goods: (state) => state.index.goods,
     }),
   },
   methods: {
     ...mapActions({
       handleGetSwiper: "index/getSwiper",
       handleGetNav: "index/getNav",
+      handleGetGoods: "index/getGoods",
     }),
+  },
+  beforeCreate() {
+    console.log("beforeCreated");
+  },
+  // created() {
+  //   console.log('created');
+  // },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  // mounted() {
+  //   console.log("mounted");
+  // },
+  beforeRouteUpdate(to, from, next) {
+    console.log("beforeRouteUpdate");
+    next();
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
   },
 };
 </script>
@@ -141,14 +190,14 @@ export default {
 $contentColor: #ffffff;
 $classifyFontSize: 0.35rem;
 $classifyItemFontSize: 0.3rem;
+.page {
+  margin-bottom: 1.5rem;
+}
 .banner-wrap {
   width: 100%;
   height: 3.5rem;
 }
-.banner-wrap img {
-  width: 100%;
-  height: 100%;
-}
+
 .nav-wrap {
   width: 100%;
   height: 1.5rem;
@@ -167,36 +216,14 @@ $classifyItemFontSize: 0.3rem;
   height: 1rem;
   margin: 0 auto;
 }
-.nav-item .img-wrap img {
-  width: 100%;
-  height: 100%;
-}
+
 
 .classify-wrap {
   width: 100%;
   height: auto;
   margin-top: 0.2rem;
-  padding: 0.2rem;
-  box-sizing: border-box;
-  background-color: $contentColor;
 }
-.classify-wrap .classify-title {
-  text-align: center;
-  color: #ee0909;
-  font-size: $classifyFontSize;
-}
-.classify-wrap .above-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  margin-top: 0.2rem;
-}
-.classify-wrap .above-wrap .left-wrap {
-  width: 50%;
-  border-right: 0.02rem solid #cccccc;
-}
-.classify-wrap .above-wrap .left-wrap .title {
+.classify-wrap .title {
   height: 0.5rem;
   font-weight: 600;
   font-size: $classifyItemFontSize;
@@ -205,55 +232,7 @@ $classifyItemFontSize: 0.3rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.classify-wrap .above-wrap .left-wrap .remark-price {
-  width: 70%;
-  height: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ee0909;
-}
-
-.classify-wrap .above-wrap .left-wrap .img-wrap {
-  width: 90%;
-  height: 2rem;
-}
-
-.classify-wrap .above-wrap .left-wrap .img-wrap img {
-  width: 100%;
-  height: 100%;
-}
-
-.classify-wrap .above-wrap .right-wrap {
-  width: 50%;
-  height: 100%;
-  margin-left: 0.2rem;
-}
-.classify-wrap .above-wrap .right-wrap .item-wrap {
-  display: flex;
-  justify-items: center;
-  align-items: space-around;
-  height: 50%;
-  border-bottom: 0.02rem solid #cccccc;
-}
-.classify-wrap .above-wrap .right-wrap .item-wrap .title-remark {
-  width: 65%;
-}
-.classify-wrap .above-wrap .right-wrap .item-wrap .title-remark .title {
-  height: 0.5rem;
-  font-weight: 600;
-  font-size: $classifyItemFontSize;
-  // 文字只显示1行，超出用...代替
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.classify-wrap .above-wrap .right-wrap .item-wrap .img-wrap {
-  width: 35%;
-  height: 100%;
-}
-.classify-wrap .above-wrap .right-wrap .item-wrap .img-wrap img {
+.classify-wrap img {
   width: 100%;
   height: 100%;
 }
@@ -265,22 +244,13 @@ $classifyItemFontSize: 0.3rem;
   border-top: 0.02rem solid #cccccc;
   padding-top: 0.2rem;
 }
-.classify-wrap .below-wrap .item .title {
-  font-weight: 600;
-  font-size: $classifyItemFontSize;
-  // 文字只显示1行，超出用...代替
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.classify-wrap .below-wrap .item-wrap {
+  width: 25%;
 }
 .classify-wrap .below-wrap .img-wrap {
-  width: 1rem;
-  height: 1rem;
+  width: 0.8rem;
+  height: 0.8rem;
   margin: 0 auto;
-}
-.classify-wrap .below-wrap .img-wrap img {
-  width: 100%;
-  height: 100%;
 }
 .classify-wrap .below-wrap .now-price {
   color: #ee0909;
@@ -291,5 +261,138 @@ $classifyItemFontSize: 0.3rem;
   color: #999999;
   text-align: center;
   text-decoration: line-through;
+}
+
+.classify-wrap .classify-item0-wrap , .classify-item1-wrap {
+  background-color: $contentColor;
+  padding: 0.1rem;
+  box-sizing: border-box;
+  margin-top: 0.2rem;
+}
+.classify-wrap .classify-item0-wrap .classify-title {
+  text-align: center;
+  color: #ee0909;
+  font-size: $classifyFontSize;
+  margin-top: 0.2rem;
+}
+.classify-wrap .classify-item0-wrap .above-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  margin-top: 0.2rem;
+}
+.classify-wrap .classify-item0-wrap .above-wrap .left-wrap {
+  width: 48%;
+  border-right: 0.02rem solid #cccccc;
+}
+.classify-wrap .classify-item0-wrap .above-wrap .left-wrap .remark-price {
+  width: 70%;
+  height: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ee0909;
+}
+.classify-wrap .classify-item0-wrap .above-wrap .left-wrap .img-wrap {
+  width: 90%;
+  height: 2rem;
+}
+.classify-wrap .classify-item0-wrap .above-wrap .right-wrap {
+  width: 48%;
+  height: 100%;
+  margin-left: 0.2rem;
+}
+.classify-wrap .classify-item0-wrap .above-wrap .right-wrap .item-wrap {
+  display: flex;
+  justify-items: center;
+  align-items: space-around;
+  height: 50%;
+  border-bottom: 0.02rem solid #cccccc;
+}
+.classify-wrap
+  .classify-item0-wrap
+  .above-wrap
+  .right-wrap
+  .item-wrap
+  .title-remark {
+  width: 65%;
+}
+.classify-wrap
+  .classify-item0-wrap
+  .above-wrap
+  .right-wrap
+  .item-wrap
+  .img-wrap {
+  width: 35%;
+  height: 100%;
+}
+
+.classify-wrap .classify-item1-wrap .classify-title {
+  text-align: center;
+  color: #087027;
+  font-size: $classifyFontSize;
+  margin-top: 0.2rem;
+}
+.classify-wrap .classify-item1-wrap .above-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  margin-top: 0.2rem;
+}
+.classify-wrap .classify-item1-wrap .above-wrap .item-wrap {
+  width: 50%;
+  height: 100%;
+}
+.classify-wrap .classify-item1-wrap .above-wrap .item-wrap .img-wrap {
+  width: 1.5rem;
+  height: 2.5rem;
+}
+
+.recom-wrap {
+  margin-top: 0.2rem;
+  
+}
+.recom-wrap .title {
+  width: 100%;
+  font-weight: 600;
+  font-size: $classifyItemFontSize;
+  // 文字只显示2行，超出用...代替
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.recom-wrap .price {
+  color: #ee0909;
+}
+.recom-wrap .title-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: $classifyFontSize;
+}
+.recom-wrap .title-wrap .line {
+  width: 35%;
+  height: 0.02rem;
+  background-color: #b1adad;
+}
+.recom-wrap .content-wrap {
+  width: 96%;
+  height: auto;
+  margin: 0 auto;
+}
+.recom-wrap .content-wrap .item-wrap {
+  width: 48%;
+  height: 4rem;
+  background-color: $contentColor;
+}
+.recom-wrap .content-wrap .item-wrap .img-wrap {
+  width: 90%;
+  height: 2.5rem;
 }
 </style>
