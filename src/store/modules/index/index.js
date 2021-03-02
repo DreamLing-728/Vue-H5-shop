@@ -1,4 +1,4 @@
-import { getSwiperData, getNavData, getGoodsData } from '../../../api/index/index';
+import { getSwiperData, getNavData, getGoodsData, getRecomData } from '../../../api/index/index';
 
 export default {
     namespaced: true,
@@ -6,7 +6,8 @@ export default {
     state: {
         swipers: [],
         navs: [],
-        goods: []
+        goods: [],
+        recoms: []
     },
     // 基本对象2： mutations：修改状态，并且是同步的，在组件中使用$store.commit('',params)
     mutations: {
@@ -19,6 +20,9 @@ export default {
         ["SET_GOODS"](state, payload) {
             state.goods = payload.goods;
         },
+        ["SET_RECOMS"](state, payload) {
+            state.recoms = payload.recoms;
+        }
     },
     // 基本对象3： actions：异步操作，在组件中使用的是$store.dispatch('')
     actions: {
@@ -52,7 +56,18 @@ export default {
                 console.log('index-res-goods', res.data);
                 // console.log(' conText, payload',  conText, payload);
                 if(res.code === 200) {
-                    conText.commit('SET_GOODS', { goods: res.data })
+                    conText.commit('SET_GOODS', { goods: res.data });
+                    if (payload.success) {
+                        payload.success();
+                    }
+                }
+            })
+        },
+        getRecom(conText, payload) {
+            getRecomData().then((res) => {
+                console.log('index-res-recom', res.data);
+                if(res.code === 200){
+                    conText.commit('SET_RECOMS', {recoms: res.data});
                     if (payload.success) {
                         payload.success();
                     }

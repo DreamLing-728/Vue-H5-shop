@@ -1,5 +1,16 @@
 <template>
   <div class="page">
+
+    <!-- 0. 搜索框 -->
+    <div class="top-wrap">
+      <div class="classify-icon"><img src="~assets/images/class.png"></div>
+      <div class="search-wrap">
+        <div class="search-icon"><img src="~assets/images/search.png"></div>
+        <div class="title">请输入宝贝名称</div>
+      </div>
+      <div class="login"><div class="title">登录</div></div>
+    </div>
+
     <!-- 1. 轮播图 -->
     <div class="banner-wrap">
       <div class="swiper-container">
@@ -78,7 +89,7 @@
           </div>
         </div>
         <div class="below-wrap">
-          <div class="item-wrap" v-for="(item2, index2) in item.items.slice(3)" :key="index2">
+          <div class="item-wrap" v-for="(item2, index2) in item.items.slice(2)" :key="index2">
             <div class="title">{{item2.title}}</div>
             <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item2.image"/></div>
             <div class="now-price">￥{{item2.price}}</div>
@@ -96,10 +107,10 @@
         <div class="line"></div>
       </div>
       <div class="content-wrap">
-        <div class="item-wrap">
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png"></div>
-          <div class="title">了时代峻峰临时冻结反馈收到了开发商的科技发生的福克斯的开发商的</div>
-          <div class="price">￥189</div>
+        <div class="item-wrap" v-for="(item, index) in recoms" :key="index">
+          <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item.image"/></div>
+          <div class="title">{{item.title}}</div>
+          <div class="price">￥{{item.price}}</div>
         </div>
       </div>
     </div>
@@ -117,7 +128,7 @@ export default {
     return {};
   },
   created() {
-    console.log("created");
+    // console.log("created");
     this.handleGetSwiper({
       success: () => {
         this.$nextTick(() => {
@@ -143,12 +154,21 @@ export default {
         });
       },
     });
+    this.handleGetRecoms({
+      success: () => {
+        this.$nextTick(() => {
+          this.$utils.lazyImg();
+          this.watchVuexData();
+        })
+      }
+    })
   },
   computed: {
     ...mapState({
       swipers: (state) => state.index.swipers,
       navs: (state) => state.index.navs,
       goods: (state) => state.index.goods,
+      recoms: (state) => state.index.recoms
     }),
   },
   methods: {
@@ -156,30 +176,35 @@ export default {
       handleGetSwiper: "index/getSwiper",
       handleGetNav: "index/getNav",
       handleGetGoods: "index/getGoods",
+      handleGetRecoms: "index/getRecom"
     }),
+    // 监控数据
+    watchVuexData(){
+      console.log('getVuexData', this.recoms)
+    }
   },
-  beforeCreate() {
-    console.log("beforeCreated");
-  },
+  // beforeCreate() {
+    // console.log("beforeCreated");
+  // },
   // created() {
   //   console.log('created');
   // },
-  beforeMount() {
-    console.log("beforeMount");
-  },
-  // mounted() {
-  //   console.log("mounted");
+  // beforeMount() {
+    // console.log("beforeMount");
   // },
-  beforeRouteUpdate(to, from, next) {
-    console.log("beforeRouteUpdate");
-    next();
-  },
-  beforeUpdate() {
-    console.log("beforeUpdate");
-  },
-  updated() {
-    console.log("updated");
-  },
+  // mounted() {
+  //   console.log("mounted-recoms", this.recoms);
+  // },
+  // beforeRouteUpdate(to, from, next) {
+    // console.log("beforeRouteUpdate");
+    // next();
+  // },
+  // beforeUpdate() {
+    // console.log("beforeUpdate");
+  // },
+  // updated() {
+    // console.log("updated");
+  // },
 };
 </script>
 
@@ -193,7 +218,50 @@ $classifyItemFontSize: 0.3rem;
 .page {
   margin-bottom: 1.5rem;
 }
+
+.top-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 0.8rem;
+  margin: 0 auto;
+}
+.top-wrap .title {
+  color: $contentColor;
+  font-size: 0.33rem;
+  line-height: 0.8rem;
+}
+.top-wrap .classify-icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-left: 0.2rem;
+}
+.top-wrap .search-wrap {
+  width: 70%;
+  height: 80%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.3rem;
+}
+.top-wrap .search-wrap .search-icon {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.3rem;
+}
+.top-wrap .login {
+  margin-right: 0.2rem;
+}
+
 .banner-wrap {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 3.5rem;
 }
@@ -347,8 +415,9 @@ $classifyItemFontSize: 0.3rem;
   height: 100%;
 }
 .classify-wrap .classify-item1-wrap .above-wrap .item-wrap .img-wrap {
+  margin: 0 auto;
   width: 1.5rem;
-  height: 2.5rem;
+  height: 2rem;
 }
 
 .recom-wrap {
@@ -385,6 +454,10 @@ $classifyItemFontSize: 0.3rem;
   width: 96%;
   height: auto;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .recom-wrap .content-wrap .item-wrap {
   width: 48%;
