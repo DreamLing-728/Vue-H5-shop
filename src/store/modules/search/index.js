@@ -5,4 +5,7 @@ export default {
     state: {
         inputSearch: ''
     },
+    mutations: {
+        
+    }
 }

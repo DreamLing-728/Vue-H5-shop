@@ -6,7 +6,7 @@
         <img src="~assets/images/common/search_x.png" alt="" />
       </div>
       <div class="search-wrap">
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="searchInput" placeholder="请输入内容"></el-input>
       </div>
       <div class="search-icon">
         <img src="~assets/images/common/search_icon.png" alt="" />
@@ -50,7 +50,7 @@ export default {
   name: "my-search",
   data() {
     return {
-      input: "",
+      searchInput: "",
     };
   },
   methods: {
