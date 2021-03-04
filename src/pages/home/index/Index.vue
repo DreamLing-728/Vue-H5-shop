@@ -1,11 +1,10 @@
 <template>
   <div class="page">
-
     <!-- 0. 搜索框 -->
     <div class="top-wrap">
-      <div class="classify-icon"><img src="~assets/images/class.png"></div>
-      <div class="search-wrap">
-        <div class="search-icon"><img src="~assets/images/search.png"></div>
+      <div class="classify-icon"><img src="~assets/images/class.png" /></div>
+      <div class="search-wrap" @click="openSearchComponent()">
+        <div class="search-icon"><img src="~assets/images/search.png" /></div>
         <div class="title">请输入宝贝名称</div>
       </div>
       <div class="login"><div class="title">登录</div></div>
@@ -44,56 +43,82 @@
     <!-- 3. 分类展示 -->
     <div class="classify-wrap" v-for="(item, index) in goods" :key="index">
       <div class="classify-item0-wrap" v-if="index % 2 === 0">
-        <div class="classify-title">——{{item.title}}——</div>
+        <div class="classify-title">——{{ item.title }}——</div>
         <div class="above-wrap">
           <div class="left-wrap">
-            <div class="title">{{item.items[0].title}}</div>
+            <div class="title">{{ item.items[0].title }}</div>
             <div class="remark-price">
               <div class="remark">精品打折</div>
-              <div class="price">{{item.items[0].price}}</div>
+              <div class="price">{{ item.items[0].price }}</div>
             </div>
             <div class="img-wrap">
-              <img src="~assets/images/lazyImg.png"  :data-echo="item.items[0].image"/>
+              <img
+                src="~assets/images/lazyImg.png"
+                :data-echo="item.items[0].image"
+              />
             </div>
           </div>
-          <div class="right-wrap" >
-            <div class="item-wrap" v-for="(item2, index2) in item.items.slice(1, 3)" :key="index2">
+          <div class="right-wrap">
+            <div
+              class="item-wrap"
+              v-for="(item2, index2) in item.items.slice(1, 3)"
+              :key="index2"
+            >
               <div class="title-remark">
-                <div class="title">{{item2.title}}</div>
+                <div class="title">{{ item2.title }}</div>
                 <div class="remark">精品挑选</div>
               </div>
               <div class="img-wrap">
-                <img src="~assets/images/lazyImg.png" :data-echo="item2.image"/>
+                <img
+                  src="~assets/images/lazyImg.png"
+                  :data-echo="item2.image"
+                />
               </div>
             </div>
           </div>
         </div>
         <div class="below-wrap">
-          <div class="item-wrap" v-for="(item3, index3) in item.items.slice(3)" :key="index3">
-            <div class="title">{{item3.title}}</div>
+          <div
+            class="item-wrap"
+            v-for="(item3, index3) in item.items.slice(3)"
+            :key="index3"
+          >
+            <div class="title">{{ item3.title }}</div>
             <div class="img-wrap">
-              <img src="~assets/images/lazyImg.png" :data-echo="item3.image"/>
+              <img src="~assets/images/lazyImg.png" :data-echo="item3.image" />
             </div>
-            <div class="now-price">￥{{item3.price}}</div>
-            <div class="old-price">￥{{item3.price*2}}</div>
+            <div class="now-price">￥{{ item3.price }}</div>
+            <div class="old-price">￥{{ item3.price * 2 }}</div>
           </div>
         </div>
       </div>
       <div class="classify-item1-wrap" v-else>
-        <div class="classify-title">———{{item.title}}———</div>
+        <div class="classify-title">———{{ item.title }}———</div>
         <div class="above-wrap">
-          <div class="item-wrap" v-for="(item1, index1) in item.items.slice(0, 2)" :key="index1">
-            <div class="title">{{item1.title}}</div>
+          <div
+            class="item-wrap"
+            v-for="(item1, index1) in item.items.slice(0, 2)"
+            :key="index1"
+          >
+            <div class="title">{{ item1.title }}</div>
             <div class="remark">精品挑选</div>
-            <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item1.image"></div>
+            <div class="img-wrap">
+              <img src="~assets/images/lazyImg.png" :data-echo="item1.image" />
+            </div>
           </div>
         </div>
         <div class="below-wrap">
-          <div class="item-wrap" v-for="(item2, index2) in item.items.slice(2)" :key="index2">
-            <div class="title">{{item2.title}}</div>
-            <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item2.image"/></div>
-            <div class="now-price">￥{{item2.price}}</div>
-            <div class="old-price">￥{{item2.price*2}}</div>
+          <div
+            class="item-wrap"
+            v-for="(item2, index2) in item.items.slice(2)"
+            :key="index2"
+          >
+            <div class="title">{{ item2.title }}</div>
+            <div class="img-wrap">
+              <img src="~assets/images/lazyImg.png" :data-echo="item2.image" />
+            </div>
+            <div class="now-price">￥{{ item2.price }}</div>
+            <div class="old-price">￥{{ item2.price * 2 }}</div>
           </div>
         </div>
       </div>
@@ -108,24 +133,33 @@
       </div>
       <div class="content-wrap">
         <div class="item-wrap" v-for="(item, index) in recoms" :key="index">
-          <div class="img-wrap"><img src="~assets/images/lazyImg.png" :data-echo="item.image"/></div>
-          <div class="title">{{item.title}}</div>
-          <div class="price">￥{{item.price}}</div>
+          <div class="img-wrap">
+            <img src="~assets/images/lazyImg.png" :data-echo="item.image" />
+          </div>
+          <div class="title">{{ item.title }}</div>
+          <div class="price">￥{{ item.price }}</div>
         </div>
       </div>
     </div>
+
+    <my-search v-show="searchShow" @close="closeSearchComponent()"></my-search>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import Swiper from "../../../assets/js/libs/swiper-3.4.2.min.js";
+import MySearch from "../../../components/search/search";
 
 export default {
   name: "index",
-  components: {},
+  components: {
+    MySearch,
+  },
   data() {
-    return {};
+    return {
+      searchShow: true
+    };
   },
   created() {
     // console.log("created");
@@ -159,16 +193,19 @@ export default {
         this.$nextTick(() => {
           this.$utils.lazyImg();
           this.watchVuexData();
-        })
-      }
-    })
+        });
+      },
+    });
+  },
+  mounted() {
+
   },
   computed: {
     ...mapState({
       swipers: (state) => state.index.swipers,
       navs: (state) => state.index.navs,
       goods: (state) => state.index.goods,
-      recoms: (state) => state.index.recoms
+      recoms: (state) => state.index.recoms,
     }),
   },
   methods: {
@@ -176,45 +213,54 @@ export default {
       handleGetSwiper: "index/getSwiper",
       handleGetNav: "index/getNav",
       handleGetGoods: "index/getGoods",
-      handleGetRecoms: "index/getRecom"
+      handleGetRecoms: "index/getRecom",
     }),
     // 监控数据
-    watchVuexData(){
-      console.log('getVuexData', this.recoms)
+    watchVuexData() {
+      // console.log("getVuexData", this.recoms);
+    },
+    // 显示搜索组件
+    openSearchComponent() {
+      this.searchShow = true;
+    },
+    // 关闭搜索组件
+    closeSearchComponent() {
+      // console.log('index-get-this.$emit');
+      this.searchShow = false
     }
   },
   // beforeCreate() {
-    // console.log("beforeCreated");
+  // console.log("beforeCreated");
   // },
   // created() {
   //   console.log('created');
   // },
   // beforeMount() {
-    // console.log("beforeMount");
+  // console.log("beforeMount");
   // },
   // mounted() {
   //   console.log("mounted-recoms", this.recoms);
   // },
   // beforeRouteUpdate(to, from, next) {
-    // console.log("beforeRouteUpdate");
-    // next();
+  // console.log("beforeRouteUpdate");
+  // next();
   // },
   // beforeUpdate() {
-    // console.log("beforeUpdate");
+  // console.log("beforeUpdate");
   // },
   // updated() {
-    // console.log("updated");
+  // console.log("updated");
   // },
 };
 </script>
 
 <style lang="scss">
 @import "../../../assets/css/swiper-3.4.2.min.css";
-/* @import "../../../node_modules/swiper/swiper.min.css"; */
 
 $contentColor: #ffffff;
 $classifyFontSize: 0.35rem;
 $classifyItemFontSize: 0.3rem;
+
 .page {
   margin-bottom: 1.5rem;
 }
@@ -285,7 +331,6 @@ $classifyItemFontSize: 0.3rem;
   margin: 0 auto;
 }
 
-
 .classify-wrap {
   width: 100%;
   height: auto;
@@ -331,7 +376,8 @@ $classifyItemFontSize: 0.3rem;
   text-decoration: line-through;
 }
 
-.classify-wrap .classify-item0-wrap , .classify-item1-wrap {
+.classify-wrap .classify-item0-wrap,
+.classify-item1-wrap {
   background-color: $contentColor;
   padding: 0.1rem;
   box-sizing: border-box;
@@ -422,7 +468,6 @@ $classifyItemFontSize: 0.3rem;
 
 .recom-wrap {
   margin-top: 0.2rem;
-  
 }
 .recom-wrap .title {
   width: 100%;
@@ -438,7 +483,7 @@ $classifyItemFontSize: 0.3rem;
 .recom-wrap .price {
   color: #ee0909;
 }
-.recom-wrap .title-wrap{
+.recom-wrap .title-wrap {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -41,7 +41,7 @@ export default {
         },
         getNav(conText, payload) {
             getNavData().then((res) => {
-                console.log('index-res-navs', res);
+                // console.log('index-res-navs', res);
                 // console.log(' conText, payload', conText, payload);
                 if (res.code === 200) {
                     conText.commit('SET_NAV', { navs: res.data });
@@ -53,7 +53,7 @@ export default {
         },
         getGoods(conText, payload) {
             getGoodsData().then((res) => {
-                console.log('index-res-goods', res.data);
+                // console.log('index-res-goods', res.data);
                 // console.log(' conText, payload',  conText, payload);
                 if(res.code === 200) {
                     conText.commit('SET_GOODS', { goods: res.data });
@@ -65,7 +65,7 @@ export default {
         },
         getRecom(conText, payload) {
             getRecomData().then((res) => {
-                console.log('index-res-recom', res.data);
+                // console.log('index-res-recom', res.data);
                 if(res.code === 200){
                     conText.commit('SET_RECOMS', {recoms: res.data});
                     if (payload.success) {

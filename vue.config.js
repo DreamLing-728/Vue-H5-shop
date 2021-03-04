@@ -14,7 +14,8 @@ module.exports = {
         }
     },
     // 关闭eslint
-    // lintOnSave: true
+    lintOnSave: false
+    
 }
 
 
