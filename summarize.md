@@ -2,7 +2,9 @@
 
 #### 实现的步骤: 只需要2个钩子函数
 ```
-created():
+mounted() {
+    document.title = this.$route.meta.title;
+}
 
 beforeRouteUpdate(to, from,  next){
     // console.log(to, from, next)
@@ -19,6 +21,7 @@ beforeRouteUpdate(to, from,  next){
 #### $route
 
 #### $route
+
 
 #### this.$route
 

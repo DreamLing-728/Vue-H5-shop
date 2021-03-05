@@ -15,7 +15,7 @@ VueRouter.prototype.push = function push(location) {
 const routes = [
   {
     path: "/",
-    name: "home ",
+    name: "home",
     redirect: "/index",
     component: () => import("../pages/home/main/Index.vue"),
     meta: {keepAlive: false},
@@ -39,11 +39,18 @@ const routes = [
           meta: {keepAlive: false, title: "我的"}
         }
     ] 
+  },
+  {
+    path: "/goods/search",
+    name: "goods-search",
+    component: () => import("../pages/home/goods/Search.vue"),
+    meta: {keepAlive: false, title: "搜索结果"}
   }
+
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   base: process.env.BASE_URL,  //自动获取根目录路径
   routes
 });
@@ -63,5 +70,7 @@ const router = new VueRouter({
 //       next();
 //   }
 // });
+
+
 
 export default router;

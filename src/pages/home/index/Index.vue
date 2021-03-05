@@ -241,10 +241,8 @@ export default {
   // mounted() {
   //   console.log("mounted-recoms", this.recoms);
   // },
-  // beforeRouteUpdate(to, from, next) {
-  // console.log("beforeRouteUpdate");
-  // next();
-  // },
+ 
+ 
   // beforeUpdate() {
   // console.log("beforeUpdate");
   // },
