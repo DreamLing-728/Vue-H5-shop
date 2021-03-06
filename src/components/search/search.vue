@@ -38,7 +38,7 @@
         <div class="title-search">热门搜索</div>
       </div>
       <div class="item-wrap">
-        <div class="item" v-for="(item, index) in hotKeywords" :key="index">{{item.title}}</div>
+        <div class="item" v-for="(item, index) in hotKeywords" :key="index" @click="goSearch(item.title)">{{item.title}}</div>
       </div>
     </div>
   </div>
@@ -72,6 +72,7 @@ export default {
     },
 
     goSearch(inputSearch){
+      console.log('component-goSearch', inputSearch)
       this.$router.replace('/goods/search?keyword=' + inputSearch);
     }
     
