@@ -158,7 +158,7 @@ export default {
   },
   data() {
     return {
-      searchShow: true
+      searchShow: false
     };
   },
   created() {

@@ -70,22 +70,21 @@ export default {
       // console.log('this.$emit')
       this.$emit("close");
     },
-
     goSearch(inputSearch){
-      console.log('component-goSearch', inputSearch)
-      this.$router.replace('/goods/search?keyword=' + inputSearch);
+      // console.log('component-goSearch', inputSearch);
+      this.closeSearchComponent();
+      this.$router.push('/goods/search?keyword=' + inputSearch);
     }
     
   },
   created() {
     this.handlegetHotKeywords();
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   // console.log(to, from, next);
-  //   document.title = to.meta.title;
-  //   this.changeNavStyle(to.name);
-  //   next();
-  // },
+  beforeRouteUpdate(to, from, next) {
+    // console.log(to, from, next);
+    document.title = to.meta.title;
+    next();
+  },
 };
 </script>
 

@@ -6,6 +6,8 @@ export function getHotKeywordsData() {
     return request(config.BASE_URL + config.PATH + "/home/public/hotwords?token=" + config.TOKEN);
 }
 
-export function getAttrsData(keywords) {
-    return request(config.BASE_URL + config.PATH + "/home/goods/param?kwords=" + keywords + '&token=' + config.TOKEN);
+// 搜索结果
+export function getAttrsData(keyword) {
+    console.log('api-getAttrsData-keyword', keyword);
+    return request(config.BASE_URL + config.PATH + "/home/goods/param?kwords=" + keyword + '&token=' + config.TOKEN);
 }
