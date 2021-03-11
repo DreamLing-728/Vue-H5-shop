@@ -53,6 +53,12 @@ export default {
       inputSearch: "",
     };
   },
+  props: {
+    isLocal:{
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
     ...mapState({
       "hotKeywords": (state) => state.search.hotKeywords,
@@ -71,9 +77,19 @@ export default {
       this.$emit("close");
     },
     goSearch(inputSearch){
-      // console.log('component-goSearch', inputSearch);
+      // console.log('component-goSearch', this.$route.query.keyword);
       this.closeSearchComponent();
-      this.$router.push('/goods/search?keyword=' + inputSearch);
+      // search page
+      if(this.isLocal) {
+        // 与原参数不相同
+        if(this.$route.query.keyword !== inputSearch) {
+          // console.log('this.$route.query.keyword !== inputSearch')
+          this.$router.replace('/goods/search?keyword=' + inputSearch);
+        }
+      }else {   // index page
+        this.$router.push('/goods/search?keyword=' + inputSearch)
+      }
+      
     }
     
   },

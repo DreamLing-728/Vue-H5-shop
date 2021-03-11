@@ -6,7 +6,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 // 解决 NavigationDuplicated: Avoided redundant navigation to current location 报错
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
@@ -24,7 +24,7 @@ const routes = [
           path: "index",
           name: "index",
           component: () => import("../pages/home/index/Index.vue"),
-          meta: {keepAlive: false, title: "首页"}
+          meta: {keepAlive: true, title: "首页"}
         },
         {
           path: "cart",

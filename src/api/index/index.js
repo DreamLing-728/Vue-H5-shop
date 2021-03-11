@@ -21,3 +21,7 @@ export function getRecomData() {
     return request(config.BASE_URL + config.PATH + "/home/index/recom?token=" + config.TOKEN);
 }
 
+// 左侧分类列表
+export function getClassifyData() {
+    return request(config.BASE_URL + config.PATH + "/home/category/menu?token=" + config.TOKEN);
+}

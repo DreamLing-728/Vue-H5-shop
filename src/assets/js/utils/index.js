@@ -4,7 +4,7 @@ import echo from '../libs/echo';
 
 function lazyImg(){
     echo.init({
-        offset: 100, // 提前加载的像素
+        offset: 200, // 提前加载的像素
         throttle: 0     // 延迟加载的时间
     })
 }
