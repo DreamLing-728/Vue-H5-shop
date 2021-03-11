@@ -115,6 +115,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 import MySearch from "../../../components/search/search";
+import UpRefresh from "../../../assets/js/libs/uprefresh";
 
 export default {
   name: "goods-search",
@@ -162,11 +163,13 @@ export default {
       SET_PRICE1: "search/SET_PRICE1",
       SET_PRICE2: "search/SET_PRICE2",
       SET_CLASSIFY: "index/SET_CLASSIFY",
+      SET_SEARCH_DATA_PAGE: "search/SET_SEARCH_DATA_PAGE"
     }),
     ...mapActions({
       handleGetAttrs: "search/getAttrs",
       handleGetSearch: "search/getSearch",
       handleGetClassify: "index/getClassify",
+      handleGetSearchPage: "search/getSearchPage"
     }),
     // 返回
     goBack() {
@@ -231,10 +234,16 @@ export default {
       };
       this.handleGetSearch({
         ...jsonParams,
-        success: () => {
+        success: (pageNum) => {
           this.$nextTick(() => {
             this.$utils.lazyImg();
           });
+          this.pullUp.init(
+            {curPage: 1, maxPage: parseInt(pageNum), offsetBottom: 100},
+            (page) => {
+              this.handleGetSearchPage({...jsonParams, page: page});
+            }
+          )
         },
       });
       this.handleGetClassify();
@@ -257,6 +266,8 @@ export default {
         });
       },
     });
+    // 实例化分页加载对象
+    this.pullUp = new UpRefresh();
     this.init();
   },
   mounted() {

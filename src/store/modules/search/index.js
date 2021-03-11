@@ -12,7 +12,7 @@ export default {
         param: [],
         price1: '',
         price2: '',
-        cid: ''
+        cid: '',
     },
     
     mutations: {
@@ -46,10 +46,15 @@ export default {
         ["GET_ATTRS"](state, payload) {
             state.attrs = payload.attrs;
         },
+        // 获取第一页的数据
         ["GET_SEARCH_DATA"](state, payload) {
             state.searchData = payload.searchData;
             state.total = payload.total;
         },
+        // 增加分页的数据
+        ["GET_SEARCH_PAGE"](state, payload) {
+            state.searchData = state.searchData.concat(payload.searchData);
+        }
         
     },
     actions: {
@@ -82,10 +87,22 @@ export default {
         },
         getSearch(conText, payload) {
             getSearchData(payload).then((res) => {
-                console.log('store-getSearch', res)
-                conText.commit('GET_SEARCH_DATA', {searchData: res.data})
+                console.log('store-getSearch', res);
+                let pageNum = 0
+                if(res.code === 200) {
+                    conText.commit('GET_SEARCH_DATA', {searchData: res.data});
+                    pageNum = res.pageinfo.pagenum;
+                }
                 if(payload.success) {
-                    payload.success();
+                    payload.success(pageNum);
+                }
+            })
+        },
+        getSearchPage(conText, payload) {
+            getSearchData(payload).then((res) => {
+                console.log('store-getSearchPage', res);
+                if(res.code === 200) {
+                    conText.commit('GET_SEARCH_PAGE', {searchData: res.data})
                 }
             })
         }
